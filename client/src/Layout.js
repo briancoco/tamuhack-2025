@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom';
 const Layout = ({userLoggedIn}) => {
   return (
     <div>
-        <div>Layout</div>
+        <div class='header-title'>-MumboJumbo.</div>
         <Outlet />
     </div>
   )
