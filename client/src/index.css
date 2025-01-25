@@ -1,13 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Lusitana&display=swap');
+
 body {
+  background-color: #1E1E1E;
+  color: #DDD0B7;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "Archivo Black", serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
+  width: 100vw;
+  padding: 0;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.header-title {
+  font-size: 35px;
+  padding: 15px;
+}
+
+.player-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

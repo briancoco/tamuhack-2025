@@ -1,10 +1,16 @@
 import React from 'react'
-import ReactPlayer from 'react-player'
+import { TextField, Button } from '@radix-ui/themes'
+import './home.css'
+
 
 const Home = () => {
   return (
-    <div>
-      <ReactPlayer url='https://www.youtube.com/watch?v=a3ICNMQW7Ok'></ReactPlayer>
+    <div className='container'>
+      <div className='content'>
+        <h1 className='title'>-MumboJumbo.</h1>
+        <input className='textfield' type="text" placeholder='Enter youtube url'></input>
+        <Button className='searchButton'>Search</Button>
+      </div>
     </div>
   )
 }
