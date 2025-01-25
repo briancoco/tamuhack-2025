@@ -46,33 +46,44 @@ async function invokeClaudeSonnet(prompt) {
   }
 }
 
-const app = express()
-require('dotenv').config()
-const connectDB = require('./db/connect')
+// const app = express()
+// require('dotenv').config()
+// const connectDB = require('./db/connect')
 
-app.get('/', (req, res) => {
-  res.json("Hello World")
-})
+// app.get('/', (req, res) => {
+//   res.json("Hello World")
+// })
 
-app.get('/ask-claude', async (req, res) => {
-  try {
-    const response = await invokeClaudeSonnet("Hello Claude!");
-    res.json(response);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-const start = async () => {
-  const port = process.env.PORT
-  try {
-    // await connectDB()
-    app.listen(port, () => {
-      console.log(`Server listening on port ${port}`)
-    })
-  } catch (error) {
-    console.log(error.message)
-  }
+async function askClaudeController(req, res) {
+    try {
+        const response = await invokeClaudeSonnet("Hello Claude!");
+        res.json(response);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 }
 
-start()
+// app.get('/ask-claude', async (req, res) => {
+//   try {
+//     const response = await invokeClaudeSonnet("Hello Claude!");
+//     res.json(response);
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// });
+
+// const start = async () => {
+//   const port = process.env.PORT
+//   try {
+//     // await connectDB()
+//     app.listen(port, () => {
+//       console.log(`Server listening on port ${port}`)
+//     })
+//   } catch (error) {
+//     console.log(error.message)
+//   }
+// }
+
+// start()
+
+module.exports = askClaudeController
