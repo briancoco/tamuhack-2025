@@ -1,0 +1,50 @@
+.container{
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.textfield{
+    background-color: #3F3F3F;
+    color: white;
+    padding: 10px;
+    border-radius: 20px;
+    width: 580px;
+    height: 20px;
+    border: 1px solid white;
+}
+
+.title{
+    font-size: 70px;
+    margin: 0px;
+}
+
+.searchButton{
+    background-color: #A12D1E;
+    color: #FFFFFF;
+    border-radius: 5px;
+    width: 100px;
+    height: 35px;
+    border: none;
+    text-align: center;
+}
+
+.searchButton:hover{
+    background-color: #792808;
+}
+
+.dropdowns-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+    gap: 10px; /* Space between the dropdowns */
+    width: 100%; /* Ensure the parent takes full width */
+}
