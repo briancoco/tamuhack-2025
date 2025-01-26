@@ -13,7 +13,7 @@ YouTubeRouter.get("/", (req, res) => {
   if (!videoId) {
     return res.status(400).send("Error: videoId query parameter is required.");
   }
-  const pythonProcess = spawn("python", ["./script.py", videoId]);
+  const pythonProcess = spawn("python3", ["./script.py", videoId]);
   let dataToSend = "";
 
   pythonProcess.stdout.on("data", (data) => {
