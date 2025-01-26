@@ -53,6 +53,7 @@ async function askClaudeController(req, res) {
     videoLanguage,
     numberOfQuestions,
     questionType,
+    proficiency,
     questionLanguage,
     transcript,
   } = req.body;
@@ -60,7 +61,7 @@ async function askClaudeController(req, res) {
     .map((entry) => `[${entry.start}s - ${entry.duration}s] ${entry.text}`)
     .join("\n");
 
-  const prompt = `ONLY GIVE ME A JSON RESPONSE. I am going to give you a video transcript in ${videoLanguage} and I want you to create ${numberOfQuestions} ${questionType} questions about this video in ${questionLanguage}. For each question include the question number, start timestamp, duration time, question, and answer. Here is the transcript: \n\n${transcriptText}`;
+  const prompt = `ONLY GIVE ME A JSON RESPONSE. I am going to give you a video transcript in ${videoLanguage} and I want you to create ${numberOfQuestions} ${questionType} questions about this video in ${questionLanguage}. There are three proficiency levels (beginner, intermediate, advanced). I want these questions to be ${proficiency} leve. For each question include the question number, start timestamp, duration time, question, and answer. The JSON should be formatted like this Here is the transcript: \n\n${transcriptText}`;
 
   try {
     const response = await invokeClaudeSonnet(prompt);
