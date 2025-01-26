@@ -5,6 +5,10 @@ import DropDownSelect from "./util/DropDownSelect";
 
 const Home = () => {
   const [youtubeLink, setYoutubeLink] = useState("");
+  const [thing, setThing] = useState("");
+  const [numQeustions, setNumQuestions] = useState(1);
+  const [proficiency, setProficiency] = useState("");
+  const [language, setLanguage] = useState("");
   const proficiencies = ["Beginner", "Intermediate", "Advanced"];
   const languages = [
     "English - English",
@@ -24,14 +28,26 @@ const Home = () => {
     "Marathi - मराठी ",
   ];
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     console.log("handling submit", youtubeLink);
-    // route to other page
-    // send youtube link data
+    console.log(youtubeLink.split("=")[1]);
+    const requestBody = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        videoId: youtubeLink.split("=")[1],
+      }),
+    };
+    const response = await fetch("http://localhost:8080/youtube", requestBody);
+    const data = await response.text();
+    console.log(data);
   };
 
   return (
     <div className="container">
+      <div>{thing}</div>
       <div className="content">
         <h1 className="title">-MumboJumbo.</h1>
         <input
@@ -44,11 +60,14 @@ const Home = () => {
           <DropDownSelect
             selectionCategory="Proficiency"
             selections={proficiencies}
+            onSelect={setProficiency}
           ></DropDownSelect>
           <DropDownSelect
             selectionCategory="Language"
             selections={languages}
+            onSelect={setLanguage}
           ></DropDownSelect>
+          <input className="num-input"></input>
         </div>
         <Button className="searchButton" onClick={handleSubmit}>
           Search

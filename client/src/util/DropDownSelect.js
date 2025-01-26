@@ -9,9 +9,9 @@ import {
 import "./DropDownSelect.css";
 
 const DropDownSelect = (props) => {
-  const { selectionCategory, selections } = props;
+  const { selectionCategory, selections, onSelect } = props;
   return (
-    <Select.Root className="selection-root">
+    <Select.Root className="selection-root" onValueChange={onSelect}>
       <Select.Trigger className="SelectTrigger" aria-label={selectionCategory}>
         <Select.Value placeholder={selectionCategory} />
         <Select.Icon className="SelectIcon">
