@@ -28,7 +28,7 @@ YouTubeRouter.post("/", (req, res) => {
     if (code !== 0) {
       res.status(500).send("Python script exited with an error.");
     } else {
-      newRequestBody = {
+      var newRequestBody = {
         videoLanguage: "English",
         numberOfQuestions: req.body.numQuestions,
         questionType: "Multiple Choice",
