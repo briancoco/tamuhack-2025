@@ -28,12 +28,12 @@ YouTubeRouter.post("/", (req, res) => {
     if (code !== 0) {
       res.status(500).send("Python script exited with an error.");
     } else {
-      newRequestBody = {
+      var newRequestBody = {
         videoLanguage: "English",
-        numberOfQuestions: 5,
+        numberOfQuestions: req.body.numQuestions,
         questionType: "Multiple Choice",
-        proficiency: "Beginner",
-        questionLanguage: "Spanish",
+        proficiency: req.body.proficiency,
+        questionLanguage: req.body.language,
         transcript: dataToSend,
       };
       fetch("http://localhost:8080/askClaude", {

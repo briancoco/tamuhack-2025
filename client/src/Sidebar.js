@@ -1,9 +1,15 @@
 import React, { useState } from "react";
 import ReactConfetti from 'react-confetti';
+import IncorrectModal from "./util/IncorrectModal";
+import CorrectModal from "./util/CorrectModal";
 
 export default function CollapsibleSidebar({isOpen, setIsOpen, questions, currentQuestion, setCurrentQuestion, setPlaying}) {
   const [choice, setChoice] = useState(null);
-  const [showConfetti, setShowConfetti] = useState(false); 
+  const [showConfetti, setShowConfetti] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [showCorrectModal, setShowCorrectModal] = useState(false);
+  const [buttonText, setButtonText] = useState("Submit");
+  const [correctAnswer, setCorrectAnswer] = useState("");
 
   const handleSubmit = () => {
     const answer = questions[currentQuestion].correctAnswer;
@@ -11,17 +17,46 @@ export default function CollapsibleSidebar({isOpen, setIsOpen, questions, curren
     if (choice === answer) {
       console.log("hooray, right answer");
       setShowConfetti(true); 
+      setShowCorrectModal(true);
+      setButtonText("Continue");
+      const correctOptionElement = document.querySelector(`input[value="${answer}"]`).nextSibling;
+      correctOptionElement.style.backgroundColor = "green";
+      setTimeout(() => {
+        setShowConfetti(false);
+      }, 3000); 
     } else {
       console.log("boo, wrong answer");
+      const correctOptionElement = document.querySelector(`input[value="${answer}"]`).nextSibling;
+      const selectedOptionElement = document.querySelector(`input[value="${choice}"]`).nextSibling;
+      selectedOptionElement.style.backgroundColor = "red";
+      correctOptionElement.style.backgroundColor = "green";
+      setCorrectAnswer(answer);
+      setShowModal(true);
+      setButtonText("Continue");
     }
-    
-    setTimeout(() => {
-      setShowConfetti(false);
+  };
+
+  const handleCloseModal = (continuePlaying = false) => {
+    setShowModal(false);
+    setShowCorrectModal(false);
+    if (continuePlaying) {
       setIsOpen(false);
       setPlaying(true);
       setChoice(null);
       setCurrentQuestion(currentQuestion + 1);
-    }, 3000); 
+      setButtonText("Submit");
+      setShowConfetti(false);
+
+      // Reset styles for the options
+      const options = document.querySelectorAll('.question-option label');
+      options.forEach(option => {
+        option.style.backgroundColor = "";
+      });
+    }
+  };
+
+  const handleNext = () => {
+    handleCloseModal(true);
   };
 
   return (
@@ -48,10 +83,12 @@ export default function CollapsibleSidebar({isOpen, setIsOpen, questions, curren
           <section className="question-buttons">
             <button className="question-button">Skip</button>
             <div>{`${currentQuestion + 1}/${questions.length}`}</div>
-            <button className="question-button" onClick={handleSubmit}>Submit</button>
+            <button className="question-button" onClick={buttonText === "Submit" ? handleSubmit : handleNext}>{buttonText}</button>
           </section>
         </div>
       }
+      {showModal && <IncorrectModal open={showModal} handleClose={() => handleCloseModal(false)} correctAnswer={correctAnswer} />} 
+      {showCorrectModal && <CorrectModal open={showCorrectModal} handleClose={handleNext} />} 
     </div>
   );
 }
