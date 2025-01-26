@@ -80,7 +80,12 @@ code {
 .question-button {
   background-color: #792808;
   padding: 5px 10px 5px 10px;
-  border: 1px solid #792808;
+  border: 1px solid #1E1E1E;
   border-radius: 10px;
   color: white;
+  transition: background-color 0.3s ease;
+}
+
+.question-button:hover {
+  background-color: #5b1f07;
 }

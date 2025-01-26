@@ -1,20 +1,22 @@
 import React, { useState } from "react";
-import {ToggleGroup} from "radix-ui"
 
-export default function CollapsibleSidebar({isOpen}) {
-  const [question, setQuestion] = useState({
-    description: "What is the capital of France?",
-    options: ["Berlin", "Madrid", "Paris", "Rome"]
-  });
+export default function CollapsibleSidebar({isOpen, setIsOpen, questions, currentQuestion, setCurrentQuestion, setPlaying}) {
   const [choice, setChoice] = useState(null);
+
+  const handleSubmit = () => {
+    setCurrentQuestion(currentQuestion + 1)
+    setIsOpen(false)
+    setPlaying(true)
+    setChoice(null)
+  }
 
   return (
     <div className="Sidebar">
       {isOpen && 
         <div className="sidebar-container">
-          <p className="question-title">{question.description}</p>
+          <p className="question-title">{questions[currentQuestion].question}</p>
           <section className="question-options">
-            {question.options.map((option, index) => (
+            {questions[currentQuestion].options.map((option, index) => (
               <div className="question-option">
               <input
                 type="radio"
@@ -29,8 +31,8 @@ export default function CollapsibleSidebar({isOpen}) {
           </section>
           <section className="question-buttons">
             <button className="question-button">Skip</button>
-            <div>1/5</div>
-            <button className="question-button">Next</button>
+            <div>{`${currentQuestion + 1}/${questions.length}`}</div>
+            <button className="question-button" onClick={handleSubmit}>Submit</button>
           </section>
         </div>
       }
