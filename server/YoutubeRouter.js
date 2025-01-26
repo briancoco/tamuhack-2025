@@ -30,10 +30,10 @@ YouTubeRouter.post("/", (req, res) => {
     } else {
       newRequestBody = {
         videoLanguage: "English",
-        numberOfQuestions: 5,
+        numberOfQuestions: req.body.numQuestions,
         questionType: "Multiple Choice",
-        proficiency: "Beginner",
-        questionLanguage: "Spanish",
+        proficiency: req.body.proficiency,
+        questionLanguage: req.body.language,
         transcript: dataToSend,
       };
       fetch("http://localhost:8080/askClaude", {
