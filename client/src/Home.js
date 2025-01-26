@@ -32,21 +32,17 @@ const Home = () => {
 
   const handleSubmit = async () => {
     console.log(youtubeLink.split("=")[1]);
-    // var formdata = new FormData();
-    // formdata.append("videoId", youtubeLink.split("=")[1]);
-    // formdata.append("proficiency", proficiency);
-    // formdata.append("numQuestions", numQuestions);
-    // formdata.append("language", language);
 
     var requestOptions = {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         videoId: youtubeLink.split("=")[1],
         proficiency: proficiency,
         numQuestions: numQuestions,
-        language,
-        language,
+        language: language,
       }),
       redirect: "follow",
     };
