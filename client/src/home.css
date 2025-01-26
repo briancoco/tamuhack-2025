@@ -35,4 +35,16 @@
     width: 100px;
     height: 35px;
     border: none;
+    text-align: center;
+}
+
+.searchButton:hover{
+    background-color: #792808;
+}
+
+.dropdowns-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+    gap: 10px; /* Space between the dropdowns */
+    width: 100%; /* Ensure the parent takes full width */
 }
