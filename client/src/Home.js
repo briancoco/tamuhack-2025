@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Button } from "@radix-ui/themes";
 import "./home.css";
 import DropDownSelect from "./util/DropDownSelect";
-import loadingBar from "./assets/tube-spinner.svg";
 import { useNavigate } from "react-router";
 
 const Home = () => {
