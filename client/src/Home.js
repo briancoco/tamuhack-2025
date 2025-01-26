@@ -8,7 +8,7 @@ import { useNavigate } from "react-router";
 const Home = () => {
   const navigate = useNavigate();
   const [youtubeLink, setYoutubeLink] = useState("");
-  const [numQeustions, setNumQuestions] = useState(5);
+  const [numQuestions, setNumQuestions] = useState(5);
   const [proficiency, setProficiency] = useState("");
   const [language, setLanguage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -32,14 +32,19 @@ const Home = () => {
   ];
 
   const handleSubmit = async () => {
-    console.log("handling submit", youtubeLink);
     console.log(youtubeLink.split("=")[1]);
-    var formdata = new FormData();
-    formdata.append("videoId", youtubeLink.split("=")[1]);
 
     var requestOptions = {
       method: "POST",
-      body: formdata,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        videoId: youtubeLink.split("=")[1],
+        proficiency: proficiency,
+        numQuestions: numQuestions,
+        language: language,
+      }),
       redirect: "follow",
     };
     setIsLoading(true);

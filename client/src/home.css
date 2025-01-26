@@ -21,6 +21,7 @@
     width: 580px;
     height: 20px;
     border: 1px solid white;
+    text-align: center;
 }
 
 .title{
@@ -47,4 +48,8 @@
     grid-template-columns: 1fr 1fr; /* Two equal columns */
     gap: 10px; /* Space between the dropdowns */
     width: 100%; /* Ensure the parent takes full width */
+}
+
+.dropdown-select {
+    background-color: #DDD0B7;
 }

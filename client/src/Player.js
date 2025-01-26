@@ -36,7 +36,7 @@ const Player = () => {
       {url && questions &&
         <div className='player-container'>
         <div>
-          <button onClick={() => setActiveQuestion(!activeQuestion)}>Open Question</button>
+          {/* <button onClick={() => setActiveQuestion(!activeQuestion)}>Open Question</button> */}
           <ReactPlayer
             className="react-player"
             controls={true}
