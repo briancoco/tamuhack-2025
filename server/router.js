@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express()
 const askClaudeController = require('./questionGenerator')
+const cors = require('cors')
 
 app.use(cors({ origin: false }));
 

@@ -56,7 +56,8 @@ async function invokeClaudeSonnet(prompt) {
 
 async function askClaudeController(req, res) {
     try {
-        const response = await invokeClaudeSonnet("Hello Claude!");
+        const prompt = "ONLY GIVE ME A JSON RESPONSE. I am going to give you a video transcript in English and I want you to create 10 multiple-choice questions about this video in Chinese. For each question include the question number, start timestamp, duration time, question, and answer. Here is the transcripte: ";
+        const response = await invokeClaudeSonnet(prompt + 'hello');
         res.json(response);
     } catch (error) {
         res.status(500).json({ error: error.message });
