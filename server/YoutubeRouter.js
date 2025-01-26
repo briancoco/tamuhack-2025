@@ -25,12 +25,46 @@ YouTubeRouter.post("/", (req, res) => {
   });
 
   pythonProcess.on("close", (code) => {
-    if (code === 0) {
-      res.send(dataToSend);
-    } else {
+    if (code !== 0) {
       res.status(500).send("Python script exited with an error.");
+    } else {
+      newRequestBody = {
+        videoLanguage: "English",
+        numberOfQuestions : 5,
+        questionType : "Multiple Choice",
+        proficiency : "Beginner",
+        questionLanguage : "Spanish",
+        transcript : dataToSend
+      } 
+      fetch("http://localhost:8080/askClaude", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newRequestBody),
+      })
+      .then(response => {
+          if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.text();
+      })
+      .then(text => {
+          try {
+              const data = JSON.parse(text);
+              console.log("Data from /askClaude:", data);
+              res.send(data);
+          } catch (e) {
+              console.error("Failed to parse JSON:", text);
+          }
+      })
+      .catch(error => {
+          console.error("Error fetching /askClaude:", error);
+      });
     }
   });
+
+  
 });
 
 module.exports = YouTubeRouter;

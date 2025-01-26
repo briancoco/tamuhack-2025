@@ -3,11 +3,12 @@ import { Button } from "@radix-ui/themes";
 import "./home.css";
 import DropDownSelect from "./util/DropDownSelect";
 import loadingBar from "./assets/tube-spinner.svg";
+import { useNavigate } from "react-router";
 
 const Home = () => {
+  const navigate = useNavigate();
   const [youtubeLink, setYoutubeLink] = useState("");
-  const [thing, setThing] = useState("");
-  const [numQeustions, setNumQuestions] = useState(1);
+  const [numQeustions, setNumQuestions] = useState(5);
   const [proficiency, setProficiency] = useState("");
   const [language, setLanguage] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -33,23 +34,26 @@ const Home = () => {
   const handleSubmit = async () => {
     console.log("handling submit", youtubeLink);
     console.log(youtubeLink.split("=")[1]);
-    const requestBody = {
+    var formdata = new FormData();
+    formdata.append("videoId", youtubeLink.split("=")[1]);
+
+    var requestOptions = {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        videoId: youtubeLink.split("=")[1],
-      }),
+      body: formdata,
+      redirect: "follow",
     };
-    const response = await fetch("http://localhost:8080/youtube", requestBody);
-    const data = await response.text();
-    console.log(data);
+
+    const response = await fetch(
+      "http://localhost:8080/youtube",
+      requestOptions
+    );
+    const questions = await response.json();
+    console.log(questions);
+    navigate("/player", { state: { questions, youtubeLink } });
   };
 
   return (
     <div className="container">
-      <div>{thing}</div>
       <div className="content">
         <h1 className="title">-MumboJumbo.</h1>
         {!isLoading ? (
