@@ -1,4 +1,3 @@
-const express = require('express');
 const { BedrockRuntimeClient, InvokeModelCommand } = require("@aws-sdk/client-bedrock-runtime");
 const dotenv = require('dotenv');
 dotenv.config();
@@ -18,7 +17,7 @@ async function invokeClaudeSonnet(prompt) {
     accept: 'application/json',
     body: JSON.stringify({
       anthropic_version: 'bedrock-2023-05-31',
-      max_tokens: 200,
+      max_tokens: 10000,
       top_k: 250,
       stop_sequences: [],
       temperature: 1,
@@ -46,14 +45,15 @@ async function invokeClaudeSonnet(prompt) {
   }
 }
 
-// const app = express()
-// require('dotenv').config()
-// const connectDB = require('./db/connect')
+async function askClaudeController (req, res) {
+  const { videoLanguage, numberOfQuestions, questionType, questionLanguage, transcript } = req.body;
+  const transcriptText = transcript
+    .map(entry => `[${entry.start}s - ${entry.duration}s] ${entry.text}`)
+    .join("\n");
 
-// app.get('/', (req, res) => {
-//   res.json("Hello World")
-// })
+  const prompt = `ONLY GIVE ME A JSON RESPONSE. I am going to give you a video transcript in ${videoLanguage} and I want you to create ${numberOfQuestions} ${questionType} questions about this video in ${questionLanguage}. For each question include the question number, start timestamp, duration time, question, and answer. Here is the transcript: \n\n${transcriptText}`;
 
+<<<<<<< HEAD
 async function askClaudeController(req, res) {
     try {
         const prompt = "ONLY GIVE ME A JSON RESPONSE. I am going to give you a video transcript in English and I want you to create 10 multiple-choice questions about this video in Chinese. For each question include the question number, start timestamp, duration time, question, and answer. Here is the transcripte: ";
@@ -62,29 +62,15 @@ async function askClaudeController(req, res) {
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
+=======
+  try {
+      const response = await invokeClaudeSonnet(prompt);
+      res.json(response);
+      
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
+>>>>>>> acac11ee49970dffc9997de256cb3ec1ed5abe01
 }
-
-// app.get('/ask-claude', async (req, res) => {
-//   try {
-//     const response = await invokeClaudeSonnet("Hello Claude!");
-//     res.json(response);
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// });
-
-// const start = async () => {
-//   const port = process.env.PORT
-//   try {
-//     // await connectDB()
-//     app.listen(port, () => {
-//       console.log(`Server listening on port ${port}`)
-//     })
-//   } catch (error) {
-//     console.log(error.message)
-//   }
-// }
-
-// start()
 
 module.exports = askClaudeController
