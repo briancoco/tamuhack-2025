@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import { Button } from "@radix-ui/themes";
 import "./home.css";
 import DropDownSelect from "./util/DropDownSelect";
+import { useNavigate } from "react-router";
 
 const Home = () => {
+  const navigate = useNavigate();
   const [youtubeLink, setYoutubeLink] = useState("");
-  const [thing, setThing] = useState("");
-  const [numQeustions, setNumQuestions] = useState(1);
+  const [numQeustions, setNumQuestions] = useState(5);
   const [proficiency, setProficiency] = useState("");
   const [language, setLanguage] = useState("");
+
   const proficiencies = ["Beginner", "Intermediate", "Advanced"];
   const languages = [
     "English - English",
@@ -38,16 +40,20 @@ const Home = () => {
       },
       body: JSON.stringify({
         videoId: youtubeLink.split("=")[1],
+        videoLanguage: language,
+        numberOfQuestions: numQeustions,
+        questionType: "Multiple Choice",
+        proficiency: proficiency,
+        questionLanguage: language,
       }),
     };
     const response = await fetch("http://localhost:8080/youtube", requestBody);
-    const data = await response.text();
-    console.log(data);
+    const questions = await response.text();
+    navigate("/player", { state: { questions, youtubeLink } });
   };
 
   return (
     <div className="container">
-      <div>{thing}</div>
       <div className="content">
         <h1 className="title">-MumboJumbo.</h1>
         <input
@@ -58,14 +64,14 @@ const Home = () => {
         ></input>
         <div className="dropdowns-container">
           <DropDownSelect
-            selectionCategory="Proficiency"
-            selections={proficiencies}
-            onSelect={setProficiency}
-          ></DropDownSelect>
-          <DropDownSelect
             selectionCategory="Language"
             selections={languages}
             onSelect={setLanguage}
+          ></DropDownSelect>
+          <DropDownSelect
+            selectionCategory="Proficiency"
+            selections={proficiencies}
+            onSelect={setProficiency}
           ></DropDownSelect>
           <input className="num-input"></input>
         </div>
