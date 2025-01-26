@@ -89,3 +89,7 @@ code {
 .question-button:hover {
   background-color: #5b1f07;
 }
+
+.loading-bar {
+  height: 100px;
+}
