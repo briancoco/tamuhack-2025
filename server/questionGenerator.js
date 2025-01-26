@@ -53,24 +53,14 @@ async function askClaudeController (req, res) {
 
   const prompt = `ONLY GIVE ME A JSON RESPONSE. I am going to give you a video transcript in ${videoLanguage} and I want you to create ${numberOfQuestions} ${questionType} questions about this video in ${questionLanguage}. For each question include the question number, start timestamp, duration time, question, and answer. Here is the transcript: \n\n${transcriptText}`;
 
-<<<<<<< HEAD
-async function askClaudeController(req, res) {
-    try {
-        const prompt = "ONLY GIVE ME A JSON RESPONSE. I am going to give you a video transcript in English and I want you to create 10 multiple-choice questions about this video in Chinese. For each question include the question number, start timestamp, duration time, question, and answer. Here is the transcripte: ";
-        const response = await invokeClaudeSonnet(prompt + 'hello');
-        res.json(response);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-=======
   try {
-      const response = await invokeClaudeSonnet(prompt);
-      res.json(response);
-      
+    const response = await invokeClaudeSonnet(prompt);
+    questionsDict = JSON.parse(response.content[0].text)
+    console.log(questionsDict);
+    res.json(questionsDict);
   } catch (error) {
-      res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error.message });
   }
->>>>>>> acac11ee49970dffc9997de256cb3ec1ed5abe01
-}
+};
 
 module.exports = askClaudeController
