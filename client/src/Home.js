@@ -33,22 +33,21 @@ const Home = () => {
   const handleSubmit = async () => {
     console.log("handling submit", youtubeLink);
     console.log(youtubeLink.split("=")[1]);
-    const requestBody = {
+    var formdata = new FormData();
+    formdata.append("videoId", youtubeLink.split("=")[1]);
+
+    var requestOptions = {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        videoId: youtubeLink.split("=")[1],
-        videoLanguage: language,
-        numberOfQuestions: numQeustions,
-        questionType: "Multiple Choice",
-        proficiency: proficiency,
-        questionLanguage: language,
-      }),
+      body: formdata,
+      redirect: "follow",
     };
-    const response = await fetch("http://localhost:8080/youtube", requestBody);
-    const questions = await response.text();
+
+    const response = await fetch(
+      "http://localhost:8080/youtube",
+      requestOptions
+    );
+    const questions = await response.json();
+    console.log(questions);
     navigate("/player", { state: { questions, youtubeLink } });
   };
 
