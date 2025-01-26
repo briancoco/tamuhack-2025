@@ -53,6 +53,7 @@ YouTubeRouter.post("/", (req, res) => {
           try {
               const data = JSON.parse(text);
               console.log("Data from /askClaude:", data);
+              res.send(data);
           } catch (e) {
               console.error("Failed to parse JSON:", text);
           }
