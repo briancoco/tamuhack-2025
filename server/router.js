@@ -5,7 +5,7 @@ const askClaudeController = require("./questionGenerator");
 const cors = require("cors");
 const YouTubeRouter = require("./YoutubeRouter");
 
-app.use(cors({ origin: false }));
+app.use(cors({ origin: true }));
 
 app.get("/askClaude", askClaudeController);
 app.get("/");
