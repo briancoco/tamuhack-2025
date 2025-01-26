@@ -11,7 +11,7 @@ const Home = () => {
   const [numQeustions, setNumQuestions] = useState(5);
   const [proficiency, setProficiency] = useState("");
   const [language, setLanguage] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const proficiencies = ["Beginner", "Intermediate", "Advanced"];
   const languages = [
     "English - English",
@@ -42,13 +42,14 @@ const Home = () => {
       body: formdata,
       redirect: "follow",
     };
-
+    setIsLoading(true);
     const response = await fetch(
       "http://localhost:8080/youtube",
       requestOptions
     );
     const questions = await response.json();
     console.log(questions);
+    setIsLoading(false);
     navigate("/player", { state: { questions, youtubeLink } });
   };
 
