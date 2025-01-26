@@ -62,7 +62,7 @@ const Home = () => {
           onChange={(event) => setYoutubeLink(event.target.value)}
         ></input>
         <div className="dropdowns-container">
-          <DropDownSelect
+          <DropDownSelect 
             selectionCategory="Language"
             selections={languages}
             onSelect={setLanguage}
