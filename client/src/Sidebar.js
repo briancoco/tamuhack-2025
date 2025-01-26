@@ -11,6 +11,12 @@ export default function CollapsibleSidebar({isOpen, setIsOpen, questions, curren
   const [buttonText, setButtonText] = useState("Submit");
   const [correctAnswer, setCorrectAnswer] = useState("");
 
+  const handleSkip = () => {
+    setChoice(null);
+    setCurrentQuestion(currentQuestion + 1);
+    handleCloseModal(true);
+  }
+
   const handleSubmit = () => {
     const answer = questions[currentQuestion].correctAnswer;
 
@@ -81,7 +87,7 @@ export default function CollapsibleSidebar({isOpen, setIsOpen, questions, curren
             ))}
           </section>
           <section className="question-buttons">
-            <button className="question-button">Skip</button>
+            <button className="question-button" onClick={handleSkip}>Skip</button>
             <div>{`${currentQuestion + 1}/${questions.length}`}</div>
             <button className="question-button" onClick={buttonText === "Submit" ? handleSubmit : handleNext}>{buttonText}</button>
           </section>
