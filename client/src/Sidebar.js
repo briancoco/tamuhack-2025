@@ -11,7 +11,7 @@ export default function CollapsibleSidebar({isOpen}) {
   return (
     <div className="Sidebar">
       {isOpen && 
-        <>
+        <div className="sidebar-container">
           <p className="question-title">{question.description}</p>
           <section className="question-options">
             {question.options.map((option, index) => (
@@ -27,7 +27,12 @@ export default function CollapsibleSidebar({isOpen}) {
               </div>
             ))}
           </section>
-        </>
+          <section className="question-buttons">
+            <button className="question-button">Skip</button>
+            <div>1/5</div>
+            <button className="question-button">Next</button>
+          </section>
+        </div>
       }
       
     </div>
