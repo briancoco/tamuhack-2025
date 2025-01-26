@@ -81,7 +81,9 @@ const Home = () => {
             selections={proficiencies}
             onSelect={setProficiency}
           ></DropDownSelect>
-          <input className="num-input" onChange={setNumQuestions}></input>
+        </div>
+        <div>
+          <input className="num-input" placeholder="Enter number of questions" onChange={setNumQuestions}></input>
         </div>
         <Button className="searchButton" onClick={handleSubmit}>
           Search
