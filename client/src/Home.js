@@ -7,7 +7,7 @@ import { useNavigate } from "react-router";
 const Home = () => {
   const navigate = useNavigate();
   const [youtubeLink, setYoutubeLink] = useState("");
-  const [numQeustions, setNumQuestions] = useState(5);
+  const [numQuestions, setNumQuestions] = useState(5);
   const [proficiency, setProficiency] = useState("");
   const [language, setLanguage] = useState("");
 
@@ -31,14 +31,23 @@ const Home = () => {
   ];
 
   const handleSubmit = async () => {
-    console.log("handling submit", youtubeLink);
     console.log(youtubeLink.split("=")[1]);
-    var formdata = new FormData();
-    formdata.append("videoId", youtubeLink.split("=")[1]);
+    // var formdata = new FormData();
+    // formdata.append("videoId", youtubeLink.split("=")[1]);
+    // formdata.append("proficiency", proficiency);
+    // formdata.append("numQuestions", numQuestions);
+    // formdata.append("language", language);
 
     var requestOptions = {
       method: "POST",
-      body: formdata,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        videoId: youtubeLink.split("=")[1],
+        proficiency: proficiency,
+        numQuestions: numQuestions,
+        language,
+        language,
+      }),
       redirect: "follow",
     };
 
@@ -72,7 +81,7 @@ const Home = () => {
             selections={proficiencies}
             onSelect={setProficiency}
           ></DropDownSelect>
-          <input className="num-input"></input>
+          <input className="num-input" onChange={setNumQuestions}></input>
         </div>
         <Button className="searchButton" onClick={handleSubmit}>
           Search
