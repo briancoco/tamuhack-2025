@@ -7,7 +7,7 @@ const YouTubeRouter = require("./YoutubeRouter");
 
 app.use(cors({ origin: true }));
 
-app.get("/askClaude", askClaudeController);
+app.post("/askClaude", askClaudeController);
 app.get("/");
 app.use("/youtube", YouTubeRouter);
 
