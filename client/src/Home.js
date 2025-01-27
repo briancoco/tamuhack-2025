@@ -64,7 +64,7 @@ const Home = () => {
   return (
     <div className="container">
       <div className="content">
-        <h1 className="title">-MumboJumbo.</h1>
+        <h1 className="title">-MumboJumbo.🦐</h1>
         {!isLoading ? (
           <>
             <input
